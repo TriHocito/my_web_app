@@ -26,7 +26,7 @@ jobs:
         password: ${{ secrets.FTP_PASSWORD }}
         
         # Thư mục gốc của repo (upload tất cả)
-        local-dir: ./ 
+        local-dir: ./www/my_web_app/
         
         # SỬA LẠI DÒNG NÀY:
         # Trỏ đến đúng thư mục public trên Somee của bạn
