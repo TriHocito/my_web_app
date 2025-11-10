@@ -1,0 +1,33 @@
+# Tên của workflow
+name: Deploy Static/PHP Site to Somee
+
+# Bắt trigger (kích hoạt) khi có push hoặc merge vào nhánh 'main'
+on:
+  push:
+    branches: [ main ] # Chỉ chạy khi nhánh 'main' thay đổi
+
+jobs:
+  deploy:
+    # Sử dụng máy ảo Ubuntu mới nhất để chạy
+    runs-on: ubuntu-latest
+
+    steps:
+    # Bước 1: Lấy mã nguồn từ repository
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    # Bước 2: Deploy lên Somee bằng FTP
+    - name: FTP Deploy
+      uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+      with:
+        # Lấy thông tin từ Secrets
+        server: ${{ secrets.FTP_SERVER }}
+        username: ${{ secrets.FTP_USERNAME }}
+        password: ${{ secrets.FTP_PASSWORD }}
+        
+        # Thư mục gốc của repo (upload tất cả)
+        local-dir: ./ 
+        
+        # SỬA LẠI DÒNG NÀY:
+        # Trỏ đến đúng thư mục public trên Somee của bạn
+        server-dir: /www.nhomphattriennguonmo.somee.com/
